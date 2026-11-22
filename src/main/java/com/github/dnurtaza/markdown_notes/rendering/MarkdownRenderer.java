@@ -3,7 +3,9 @@ package com.github.dnurtaza.markdown_notes.rendering;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MarkdownRenderer {
     private final Parser parser;
     private final HtmlRenderer renderer;
