@@ -36,6 +36,7 @@
 	</scm>
 	<properties>
 		<java.version>25</java.version>
+		<tomcat.version>11.0.29</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,6 +47,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20250517</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
