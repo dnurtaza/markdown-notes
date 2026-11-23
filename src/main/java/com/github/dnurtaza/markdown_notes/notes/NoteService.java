@@ -8,13 +8,11 @@ import java.util.List;
 public class NoteService {
     private final NoteRepository repository;
 
-    NoteService(NoteRepository repository)
-    {
+    NoteService(NoteRepository repository) {
         this.repository = repository;
     }
 
-    public Note create(String filename, String content)
-    {
+    public Note create(String filename, String content) {
         if (filename == null || !filename.toLowerCase().endsWith(".md")) {
             throw new IllegalArgumentException("Only .md files are allowed");
         }
@@ -24,8 +22,7 @@ public class NoteService {
         return repository.save(new Note(toTitle(filename), content));
     }
 
-    String toTitle(String filename)
-    {
+    String toTitle(String filename) {
         String name = filename.replace('\\', '/');
         name = name.substring(name.lastIndexOf('/') + 1);
 
@@ -40,14 +37,12 @@ public class NoteService {
         return name.isEmpty() ? "untitled" : name;
     }
 
-    public Note findById(Long id)
-    {
+    public Note findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException(id));
     }
 
-    public List<Note> findAll()
-    {
+    public List<Note> findAll() {
         return repository.findAllByOrderByCreatedAtDesc();
     }
 }

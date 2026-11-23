@@ -10,22 +10,19 @@ class GrammarServiceTests {
     private final GrammarService service = new GrammarService(Languages.getLanguageForShortCode("en-US"));
 
     @Test
-    void findsAgreementError()
-    {
+    void findsAgreementError() {
         assertThat(service.check("He go to school."))
                 .isNotEmpty();
     }
 
     @Test
-    void acceptsCorrectText()
-    {
+    void acceptsCorrectText() {
         assertThat(service.check("He goes to school."))
                 .isEmpty();
     }
 
     @Test
-    void returnsFragmentAndSuggestions()
-    {
+    void returnsFragmentAndSuggestions() {
         GrammarIssue issue = service.check("He go to school.").getFirst();
 
         assertThat(issue.fragment()).isNotBlank();

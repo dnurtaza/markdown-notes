@@ -14,13 +14,11 @@ public class GrammarService {
     private static final int MAX_SUGGESTIONS = 5;
     private final Language language;
 
-    GrammarService(Language language)
-    {
+    GrammarService(Language language) {
         this.language = language;
     }
 
-    public List<GrammarIssue> check(String text)
-    {
+    public List<GrammarIssue> check(String text) {
         JLanguageTool tool = new JLanguageTool(language);
         try {
             return tool.check(text).stream()
@@ -31,8 +29,7 @@ public class GrammarService {
         }
     }
 
-    private static GrammarIssue toIssue(RuleMatch match, String text)
-    {
+    private static GrammarIssue toIssue(RuleMatch match, String text) {
         List<String> suggestions = match.getSuggestedReplacements().stream()
                 .limit(MAX_SUGGESTIONS)
                 .toList();

@@ -4,8 +4,7 @@ import java.time.Instant;
 
 public record NoteResponse(Long id, String title, String content, Instant createdAt) {
 
-    static NoteResponse from(Note note)
-    {
+    static NoteResponse from(Note note) {
         return new NoteResponse(
                 note.getId(),
                 note.getTitle(),

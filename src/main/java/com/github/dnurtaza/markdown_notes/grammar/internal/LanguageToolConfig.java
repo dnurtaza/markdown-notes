@@ -6,12 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-class LanguageToolConfig
-{
+class LanguageToolConfig {
 
     @Bean
-    Language grammarLanguage()
-    {
+    Language grammarLanguage() {
         return Languages.getLanguageForShortCode("en-US");
     }
 }

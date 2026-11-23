@@ -22,17 +22,28 @@ public class Note {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    protected Note() {}
+    protected Note() {
+    }
 
-    public Note(String title, String content)
-    {
+    public Note(String title, String content) {
         this.title = title;
         this.content = content;
         this.createdAt = Instant.now();
     }
 
-    public Long getId() { return id; }
-    public String getTitle() { return title; }
-    public String getContent() { return content; }
-    public Instant getCreatedAt() { return createdAt; }
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 }

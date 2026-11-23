@@ -12,21 +12,18 @@ public class MarkdownRenderer {
     private final HtmlRenderer renderer;
     private final TextContentRenderer textRenderer;
 
-    public MarkdownRenderer(Parser parser, HtmlRenderer renderer, TextContentRenderer textRenderer)
-    {
+    public MarkdownRenderer(Parser parser, HtmlRenderer renderer, TextContentRenderer textRenderer) {
         this.parser = parser;
         this.renderer = renderer;
         this.textRenderer = textRenderer;
     }
 
-    public String render(String markdown)
-    {
+    public String render(String markdown) {
         Node document = parser.parse(markdown);
         return renderer.render(document);
     }
 
-    public String renderPlainText(String markdown)
-    {
+    public String renderPlainText(String markdown) {
         return textRenderer.render(parser.parse(markdown))
                 .replace("\n", "\n\n");
     }

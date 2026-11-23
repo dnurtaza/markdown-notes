@@ -8,13 +8,13 @@ import org.springframework.modulith.docs.Documenter;
 @SpringBootTest
 class MarkdownNotesApplicationTests {
 
-	@Test
-	void verifyModulesAndWriteDocs() {
-		var modules = ApplicationModules.of(MarkdownNotesApplication.class).verify();
+    @Test
+    void verifyModulesAndWriteDocs() {
+        var modules = ApplicationModules.of(MarkdownNotesApplication.class).verify();
 
-		new Documenter(modules)
-				.writeModulesAsPlantUml()
-				.writeIndividualModulesAsPlantUml();
-	}
+        new Documenter(modules)
+                .writeModulesAsPlantUml()
+                .writeIndividualModulesAsPlantUml();
+    }
 
 }

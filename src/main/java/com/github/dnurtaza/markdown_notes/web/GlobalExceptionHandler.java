@@ -15,20 +15,17 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NoteNotFoundException.class)
-    ProblemDetail handleNotFound(NoteNotFoundException e)
-    {
+    ProblemDetail handleNotFound(NoteNotFoundException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    ProblemDetail handleBadRequest(IllegalArgumentException e)
-    {
+    ProblemDetail handleBadRequest(IllegalArgumentException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    ProblemDetail handleUnexpected(Exception e)
-    {
+    ProblemDetail handleUnexpected(Exception e) {
         log.error("Unexpected error", e);
         return ProblemDetail.forStatusAndDetail(
                 HttpStatus.INTERNAL_SERVER_ERROR,

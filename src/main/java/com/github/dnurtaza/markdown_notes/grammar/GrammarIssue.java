@@ -6,6 +6,5 @@ public record GrammarIssue(
         String message,
         String fragment,
         List<String> suggestions
-)
-{
+) {
 }

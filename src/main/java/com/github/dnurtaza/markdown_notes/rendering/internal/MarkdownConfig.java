@@ -9,14 +9,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class MarkdownConfig {
     @Bean
-    Parser markdownParser()
-    {
+    Parser markdownParser() {
         return Parser.builder().build();
     }
 
     @Bean
-    HtmlRenderer htmlRenderer()
-    {
+    HtmlRenderer htmlRenderer() {
         return HtmlRenderer.builder()
                 .escapeHtml(true)
                 .sanitizeUrls(true)
@@ -24,8 +22,7 @@ class MarkdownConfig {
     }
 
     @Bean
-    TextContentRenderer textContentRenderer()
-    {
+    TextContentRenderer textContentRenderer() {
         return TextContentRenderer.builder().build();
     }
 }
