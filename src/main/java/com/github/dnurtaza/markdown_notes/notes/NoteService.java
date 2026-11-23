@@ -19,17 +19,36 @@ public class NoteService {
         if (content.isBlank()) {
             throw new IllegalArgumentException("File is empty");
         }
-        return repository.save(new Note(toTitle(filename), content));
+        return save(titleFromFilename(filename), content);
     }
 
-    String toTitle(String filename) {
+    public Note createFromText(String title, String content) {
+        return save(sanitizeTitle(title), content);
+    }
+
+    private Note save(String title, String content) {
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("Note content is empty");
+        }
+
+        return repository.save(new Note(title, content));
+    }
+
+    private static String titleFromFilename(String filename) {
         String name = filename.replace('\\', '/');
         name = name.substring(name.lastIndexOf('/') + 1);
 
         name = name.substring(0, name.length() - 3);
 
-        name = name.replaceAll("[^\\p{L}\\p{N} ._-]", "").strip();
+        return sanitizeTitle(filename);
+    }
 
+    private static String sanitizeTitle(String title) {
+        if (title == null) {
+            return "untitled";
+        }
+
+        String name = title.replaceAll("[^\\p{L}\\p{N} ._-]", "").strip();
         if (name.length() > 100) {
             name = name.substring(0, 100);
         }

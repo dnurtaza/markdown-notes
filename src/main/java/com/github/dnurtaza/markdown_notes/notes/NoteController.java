@@ -26,11 +26,23 @@ class NoteController {
         this.grammarService = grammarService;
     }
 
+    @PostMapping(consumes = MediaType.TEXT_MARKDOWN_VALUE)
+    ResponseEntity<NoteResponse> createFromText(
+            @RequestParam(defaultValue = "untitled") String title,
+            @RequestBody String content
+    ) {
+        return created(service.createFromText(title, content));
+    }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<NoteResponse> upload(@RequestParam("file") MultipartFile file) throws IOException {
         String content = new String(file.getBytes(), StandardCharsets.UTF_8);
         Note note = service.create(file.getOriginalFilename(), content);
 
+        return created(note);
+    }
+
+    private static ResponseEntity<NoteResponse> created(Note note) {
         return ResponseEntity
                 .created(URI.create("/notes/" + note.getId()))
                 .body(NoteResponse.from(note));
