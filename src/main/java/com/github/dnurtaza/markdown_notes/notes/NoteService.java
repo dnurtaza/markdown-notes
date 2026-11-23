@@ -24,7 +24,7 @@ public class NoteService {
         return repository.save(new Note(toTitle(filename), content));
     }
 
-    public static String toTitle(String filename)
+    String toTitle(String filename)
     {
         String name = filename.replace('\\', '/');
         name = name.substring(name.lastIndexOf('/') + 1);
