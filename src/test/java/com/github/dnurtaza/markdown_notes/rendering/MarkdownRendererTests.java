@@ -2,13 +2,15 @@ package com.github.dnurtaza.markdown_notes.rendering;
 
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.commonmark.renderer.text.TextContentRenderer;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MarkdownRendererTests {
     private final MarkdownRenderer renderer = new MarkdownRenderer(
             Parser.builder().build(),
-            HtmlRenderer.builder().escapeHtml(true).sanitizeUrls(true).build()
+            HtmlRenderer.builder().escapeHtml(true).sanitizeUrls(true).build(),
+            TextContentRenderer.builder().build()
     );
 
     @Test

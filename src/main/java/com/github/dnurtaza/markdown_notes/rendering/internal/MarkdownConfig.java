@@ -2,11 +2,12 @@ package com.github.dnurtaza.markdown_notes.rendering.internal;
 
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.commonmark.renderer.text.TextContentRenderer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MarkdownConfig {
+class MarkdownConfig {
     @Bean
     Parser markdownParser()
     {
@@ -20,5 +21,11 @@ public class MarkdownConfig {
                 .escapeHtml(true)
                 .sanitizeUrls(true)
                 .build();
+    }
+
+    @Bean
+    TextContentRenderer textContentRenderer()
+    {
+        return TextContentRenderer.builder().build();
     }
 }
