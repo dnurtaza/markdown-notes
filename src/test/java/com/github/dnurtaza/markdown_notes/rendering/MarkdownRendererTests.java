@@ -4,6 +4,7 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.renderer.text.TextContentRenderer;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MarkdownRendererTests {
@@ -14,21 +15,18 @@ public class MarkdownRendererTests {
     );
 
     @Test
-    void rendersHeading()
-    {
+    void rendersHeading() {
         assertThat(renderer.render("# Hello")).contains("<h1>Hello</h1>");
     }
 
     @Test
-    void escapesScriptTags()
-    {
+    void escapesScriptTags() {
         assertThat(renderer.render("<script>alert(1);</script>"))
                 .doesNotContain("<script>");
     }
 
     @Test
-    void removesJavascriptFromLinks()
-    {
+    void removesJavascriptFromLinks() {
         assertThat(renderer.render("[click](javascript:alert('xss'))"))
                 .contains("<a")
                 .doesNotContain("javascript:");
@@ -46,5 +44,30 @@ public class MarkdownRendererTests {
         String html = renderer.render("[Google](https://google.com)");
 
         assertThat(html).contains("href=\"https://google.com\"");
+    }
+
+    @Test
+    void plainTextRemovesMarkdownSyntax() {
+        String text = renderer.renderPlainText("# Title\n\nSome **bold** text");
+
+        assertThat(text)
+                .contains("Title")
+                .contains("Some bold text")
+                .doesNotContain("#")
+                .doesNotContain("**");
+    }
+
+    @Test
+    void plainTextSeparatesBlocksWithBlankLine() {
+        String text = renderer.renderPlainText("# Hello world\nWhat do you do?");
+
+        assertThat(text).contains("Hello world\n\nWhat do you do?");
+    }
+
+    @Test
+    void plainTextKeepsLinkText() {
+        String text = renderer.renderPlainText("[Google](https://google.com)");
+
+        assertThat(text).contains("Google");
     }
 }
