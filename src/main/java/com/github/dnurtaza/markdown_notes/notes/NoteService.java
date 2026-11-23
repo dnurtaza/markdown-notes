@@ -40,7 +40,7 @@ public class NoteService {
 
         name = name.substring(0, name.length() - 3);
 
-        return sanitizeTitle(filename);
+        return sanitizeTitle(name);
     }
 
     private static String sanitizeTitle(String title) {
