@@ -6,7 +6,7 @@ Solution for the [Markdown Note-taking App](https://roadmap.sh/projects/markdown
 
 ## Features
 
-- Upload `.md` files and store them as notes
+- Upload `.md` files or send Markdown text and store them as notes
 - List all saved notes (newest first)
 - Get the raw Markdown of a note
 - Render a note as HTML (with XSS protection)
@@ -55,6 +55,7 @@ Notes are stored in `data/notes.mv.db` and persist between restarts.
 | Method | Endpoint | Description |
 |---|---|---|
 | `POST` | `/notes` | Upload a Markdown file (`multipart/form-data`, field `file`) |
+| `POST` | `/notes?title=...` | Save Markdown text from the request body (`text/markdown`) |
 | `GET` | `/notes` | List all notes |
 | `GET` | `/notes/{id}` | Get a note with its Markdown content |
 | `GET` | `/notes/{id}/html` | Get a note rendered as HTML |
@@ -80,6 +81,16 @@ Content-Type: application/json
 ```
 
 Only `.md` files are accepted. The title is taken from the file name.
+
+### Save Markdown text
+
+```bash
+curl -i -X POST "http://localhost:2244/notes?title=shopping" \
+     -H "Content-Type: text/markdown; charset=UTF-8" \
+     --data-binary @todo.md
+```
+
+The request body is the Markdown text itself. The `title` parameter is optional (defaults to `untitled`). Use `--data-binary` rather than `-d`, otherwise curl strips line breaks.
 
 ### List notes
 
@@ -134,10 +145,10 @@ Errors are returned in the [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) `P
 
 | Status | When |
 |---|---|
-| `400` | The file is not `.md`, is empty, or the `file` field is missing |
+| `400` | The file is not `.md`, the note is empty, or the `file` field is missing |
 | `404` | The note does not exist |
 | `413` | The file is larger than 1 MB |
-| `415` | The request is not `multipart/form-data` |
+| `415` | The request is neither `multipart/form-data` nor `text/markdown` |
 
 ## Project Structure
 
