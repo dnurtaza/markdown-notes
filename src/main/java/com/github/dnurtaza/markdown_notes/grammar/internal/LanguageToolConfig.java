@@ -1,4 +1,4 @@
-package com.github.dnurtaza.markdown_notes.grammar.intrenal;
+package com.github.dnurtaza.markdown_notes.grammar.internal;
 
 import org.languagetool.Language;
 import org.languagetool.Languages;
